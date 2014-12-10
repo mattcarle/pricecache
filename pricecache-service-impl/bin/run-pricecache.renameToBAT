@@ -1,0 +1,2 @@
+@echo off
+start java -Dselector=%1 -Dh2db.path=../../pricecache-dao/h2db -cp ..\target\pricecache-service-impl.jar com.carle.pricecache.app.StandaloneApp

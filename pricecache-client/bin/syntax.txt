@@ -1,0 +1,13 @@
+
+
+
+*** Please try again specifying a selector as the argument ***
+
+Syntax:
+	run-subscriber.bat <selector>
+
+Examples:
+	run-subscriber.bat "vendorName='Reuters'"
+	run-subscriber.bat "ticker='IBM'"
+
+	

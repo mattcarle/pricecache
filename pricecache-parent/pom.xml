@@ -1,0 +1,220 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.carle.pricecache</groupId>
+  <artifactId>pricecache-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>../pricecache-model</module>
+    <module>../pricecache-service</module>
+    <module>../pricecache-service-impl</module>
+    <module>../pricecache-dao</module>
+    <module>../pricecache-messaging</module>
+    <module>../pricecache-client</module>
+    <module>../pricecache-web</module>
+  </modules>
+
+  <properties>
+    <java-version>1.7</java-version>
+    <org.springframework-version>3.2.1.RELEASE</org.springframework-version>
+    <org.aspectj-version>1.6.10</org.aspectj-version>
+    <org.slf4j-version>1.6.6</org.slf4j-version>
+    <junit-version>4.11</junit-version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <guava-version>13.0.1</guava-version>
+    <pricecache-version>0.0.1-SNAPSHOT</pricecache-version>
+    <dbunit-version>2.4.9</dbunit-version>
+    <unitils-version>3.3</unitils-version>
+    <apache-commons-version>3.0</apache-commons-version>
+    <joda-version>2.2</joda-version>
+    <hibernate-version>4.2.1.Final</hibernate-version>
+    <activemq-version>5.7.0</activemq-version>
+    <xbean-version>3.7</xbean-version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Price Cache Modules -->
+      <dependency>
+        <groupId>com.carle.pricecache</groupId>
+        <artifactId>pricecache-model</artifactId>
+        <version>${pricecache-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.carle.pricecache</groupId>
+        <artifactId>pricecache-service</artifactId>
+        <version>${pricecache-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.carle.pricecache</groupId>
+        <artifactId>pricecache-dao</artifactId>
+        <version>${pricecache-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.carle.pricecache</groupId>
+        <artifactId>pricecache-messaging</artifactId>
+        <version>${pricecache-version}</version>
+      </dependency>
+
+      <!-- JUnit -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit-version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- DBUnit and Unitils -->
+      <dependency>
+        <groupId>org.dbunit</groupId>
+        <artifactId>dbunit</artifactId>
+        <version>${dbunit-version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.unitils</groupId>
+        <artifactId>unitils-dbunit</artifactId>
+        <version>${unitils-version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.unitils</groupId>
+        <artifactId>unitils-spring</artifactId>
+        <version>${unitils-version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.unitils</groupId>
+        <artifactId>unitils-core</artifactId>
+        <version>${unitils-version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- Spring -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+        <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-oxm</artifactId>
+        <version>${org.springframework-version}</version>
+      </dependency>
+
+      <!-- Guava -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava-version}</version>
+      </dependency>
+
+      <!-- Apache Commons -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${apache-commons-version}</version>
+      </dependency>
+
+      <!-- Joda Time -->
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>${joda-version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jms</artifactId>
+        <version>${org.springframework-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.activemq</groupId>
+        <artifactId>activemq-core</artifactId>
+        <version>${activemq-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.activemq</groupId>
+        <artifactId>activemq-pool</artifactId>
+        <version>${activemq-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.activemq</groupId>
+        <artifactId>activemq-spring</artifactId>
+        <version>${activemq-version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <version>1.9.5</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>${java-version}</source>
+            <target>${java-version}</target>
+            <compilerArgument>-Xlint:all</compilerArgument>
+            <showWarnings>true</showWarnings>
+            <showDeprecation>true</showDeprecation>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>2.4</version>
+          <configuration>
+            <descriptorRefs>
+              <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-shade-plugin</artifactId>
+          <version>2.0</version>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+  </build>
+
+</project>

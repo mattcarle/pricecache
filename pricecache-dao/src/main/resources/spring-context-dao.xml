@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+  xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+  <context:property-placeholder location="classpath:/h2-db.properties" />
+
+  <!-- Scan components in this package (and sub-packages) for classes annotated with @Component, @Repository etc. -->
+  <context:component-scan base-package="com.carle.pricecache.dao" />
+
+  <!-- Annotation-driven transactions -->
+  <tx:annotation-driven />
+
+
+  <!-- Lazy Connection Data Source Proxy - defers starting a transaction until a connection is fetched -->
+  <bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+    <constructor-arg ref="targetDataSource" />
+  </bean>
+
+  <!-- Apache Commons Database Connection Pool -->
+  <!-- Note: This bean is overridden in test-spring-context-dao.xml for running DBUnit tests -->
+  <bean id="targetDataSource" class="org.apache.commons.dbcp.BasicDataSource" depends-on="org.h2.tools.Server">
+    <property name="driverClassName" value="${jdbc.driverClassName}" />
+    <property name="url" value="${jdbc.url}" />
+    <property name="username" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+    <property name="maxActive" value="20" />
+    <property name="maxWait" value="1000" />
+    <property name="poolPreparedStatements" value="true" />
+  </bean>
+
+
+  <!-- Recreate the schema -->
+  <!-- <jdbc:initialize-database data-source="dataSource"> <jdbc:script location="classpath:h2-ddl.sql" /> </jdbc:initialize-database> -->
+
+  <!-- Hibernate Session Factory -->
+  <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="packagesToScan" value="com.carle.pricecache.model" />
+    <property name="hibernateProperties">
+      <props>
+        <prop key="dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+        <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+        <prop key="jadira.usertype.autoRegisterUserTypes">true</prop>
+        <prop key="jadira.usertype.databaseZone">jvm</prop>
+        <prop key="jadira.usertype.javaZone">jvm</prop>
+      </props>
+    </property>
+  </bean>
+
+  <!-- Hibernate Transaction Manager -->
+  <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+  </bean>
+
+  <!-- Spring exception translation for Hibernate contextual sessions -->
+  <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+</beans>

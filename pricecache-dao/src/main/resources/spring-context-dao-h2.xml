@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:p="http://www.springframework.org/schema/p"
+  xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+  <bean id="h2Properties" class="java.util.Properties">
+    <constructor-arg>
+    <props>
+      <!-- property specifying the path to the H2 database -->
+      <prop key="dbpath">#{systemProperties['h2db.path']?:'../pricecache-dao/h2db'}</prop>
+      <!-- <prop key="dbpath">../pricecache-dao/h2db</prop>-->
+    </props>
+    </constructor-arg>
+  </bean>  
+  
+  <!-- Start H2 database in server mode -->
+  <bean id="org.h2.tools.Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start"
+    lazy-init="false" destroy-method="stop">
+    <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,8043,-baseDir,#{h2Properties.getProperty('dbpath')}" />
+  </bean>
+
+  <!-- Start web server for H2 database console -->
+  <bean id="org.h2.tools.Server-WebServer" class="org.h2.tools.Server" factory-method="createWebServer"
+    init-method="start" lazy-init="false">
+    <constructor-arg value="-web,-webAllowOthers,-webPort,8082" />
+  </bean>
+</beans>
